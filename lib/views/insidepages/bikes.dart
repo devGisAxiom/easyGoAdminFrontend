@@ -4,6 +4,8 @@ import 'package:getbike_admin/models/models.dart';
 import 'package:getbike_admin/utils/navigations.dart';
 import 'package:getbike_admin/views/image.dart';
 import 'package:getbike_admin/utils/utilities.dart';
+import 'package:getbike_admin/views/postpages/add_bike_page.dart';
+import 'package:getbike_admin/views/postpages/edit_bike_page.dart';
 
 class VehiclesList extends StatefulWidget {
   @override
@@ -205,6 +207,7 @@ class _VehiclesListState extends State<VehiclesList> {
                 children: [
                   _buildDetailRow('Bike ID', bike.bId.toString()),
                   _buildDetailRow('Bike Name', bike.bName),
+                  _buildDetailRow('Vehicle No.', bike.vehicleNumber ?? '-'),
                   _buildDetailRow('Type', bike.bGeartype),
                   _buildDetailRow(
                     'Rent/Day',
@@ -266,6 +269,18 @@ class _VehiclesListState extends State<VehiclesList> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[50],
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () async {
+          await showDialog(
+            context: context,
+            builder: (_) => const AddBikeDialog(),
+          );
+          fetchdata();
+        },
+        backgroundColor: primaryColor,
+        icon: const Icon(Icons.add, color: Colors.white),
+        label: const Text('Add Bike', style: TextStyle(color: Colors.white)),
+      ),
       appBar: AppBar(
         title: Text(
           'Vehicle Management',
@@ -453,6 +468,7 @@ class _VehiclesListState extends State<VehiclesList> {
                                         numeric: true,
                                       ),
                                       DataColumn(label: Text('Name')),
+                                      DataColumn(label: Text('Vehicle No.')),
                                       DataColumn(label: Text('Image')),
                                       DataColumn(label: Text('Type')),
                                       DataColumn(
@@ -474,7 +490,7 @@ class _VehiclesListState extends State<VehiclesList> {
                                       ),
                                       DataColumn(label: Text('Maintenance')),
                                       DataColumn(label: Text('Status')),
-                                      DataColumn(label: Text('View')),
+                                      DataColumn(label: Text('Actions')),
                                     ],
                                     rows:
                                         _filteredBikes.map((bike) {
@@ -501,6 +517,16 @@ class _VehiclesListState extends State<VehiclesList> {
                                                       fontWeight:
                                                           FontWeight.w500,
                                                     ),
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+                                              ),
+                                              DataCell(
+                                                SizedBox(
+                                                  width: 100,
+                                                  child: Text(
+                                                    bike.vehicleNumber ?? '-',
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                   ),
@@ -593,18 +619,39 @@ class _VehiclesListState extends State<VehiclesList> {
                                                 ),
                                               ),
                                               DataCell(
-                                                IconButton(
-                                                  icon: Icon(
-                                                    Icons.visibility,
-                                                    size: 18,
-                                                  ),
-                                                  color: Colors.blue,
-                                                  onPressed: () {
-                                                    _showBikeDetails(
-                                                      context,
-                                                      bike,
-                                                    );
-                                                  },
+                                                Row(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  children: [
+                                                    IconButton(
+                                                      icon: const Icon(
+                                                        Icons.visibility,
+                                                        size: 18,
+                                                      ),
+                                                      color: Colors.blue,
+                                                      tooltip: 'View details',
+                                                      onPressed: () {
+                                                        _showBikeDetails(
+                                                          context,
+                                                          bike,
+                                                        );
+                                                      },
+                                                    ),
+                                                    IconButton(
+                                                      icon: const Icon(
+                                                        Icons.edit,
+                                                        size: 18,
+                                                      ),
+                                                      color: Colors.orange,
+                                                      tooltip: 'Edit bike',
+                                                      onPressed: () async {
+                                                        final updated = await showDialog<bool>(
+                                                          context: context,
+                                                          builder: (_) => EditBikeDialog(bike: bike),
+                                                        );
+                                                        if (updated == true) fetchdata();
+                                                      },
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ],

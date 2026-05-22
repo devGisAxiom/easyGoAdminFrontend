@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:getbike_admin/utils/utilities.dart';
 // import 'package:getbike_admin/views/insidepages/bikes.dart';
+import 'package:getbike_admin/views/insidepages/bikes.dart';
 import 'package:getbike_admin/views/insidepages/bikesonride.dart';
 import 'package:getbike_admin/views/insidepages/bookng_req.dart';
 import 'package:getbike_admin/views/insidepages/cancellation_reqs.dart';
@@ -13,7 +14,7 @@ import 'package:getbike_admin/views/insidepages/contact_support.dart';
 import 'package:getbike_admin/views/insidepages/dashborad.dart';
 // import 'package:getbike_admin/views/insidepages/feedback.dart';
 import 'package:getbike_admin/views/insidepages/logout.dart';
-// import 'package:getbike_admin/views/insidepages/payments.dart';
+import 'package:getbike_admin/views/insidepages/payments.dart';
 // import 'package:getbike_admin/views/insidepages/settings.dart';
 import 'package:getbike_admin/views/insidepages/upcomingrides.dart';
 import 'package:getbike_admin/views/insidepages/users.dart';
@@ -103,8 +104,8 @@ class _HomeScreenState extends State<HomeScreen> {
     CancellationRequests(),
     UserListPage(),
     // FeedbackPage(),
-    // PaymentList(),
-    // VehiclesList(),
+    PaymentList(),
+    VehiclesList(),
     // SettingsPage(),
     SupportPage(),
     Logout(),
@@ -214,9 +215,10 @@ class ExampleSidebarX extends StatelessWidget {
       "Cancellation Requests",
       "Users",
       // "Feedback",
-      // "Payments",
+      "Payment Reports",
       // "Vehicles",
       // "Settings",
+      "Manage Bikes",
       "Support",
       "Logout",
     ];
@@ -234,6 +236,7 @@ class ExampleSidebarX extends StatelessWidget {
       // Icons.payment,
       // Icons.directions_bike,
       // Icons.settings,/
+      Icons.two_wheeler,
       Icons.support,
       Icons.logout,
     ];

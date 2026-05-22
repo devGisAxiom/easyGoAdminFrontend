@@ -17,6 +17,8 @@ class AddBikeDialog extends StatefulWidget {
 class _AddBikeDialogState extends State<AddBikeDialog> {
    final TextEditingController bikeNameController = TextEditingController();
 
+  final TextEditingController vehicleNumberController = TextEditingController();
+
   final TextEditingController typeController = TextEditingController();
 
   final TextEditingController rentController = TextEditingController();
@@ -96,6 +98,7 @@ class _AddBikeDialogState extends State<AddBikeDialog> {
   @override
   void dispose() {
     bikeNameController.dispose();
+    vehicleNumberController.dispose();
     typeController.dispose();
     rentController.dispose();
     mileageController.dispose();
@@ -195,6 +198,7 @@ class _AddBikeDialogState extends State<AddBikeDialog> {
     AddBike().addBikes(
       context: context, 
       name: bikeNameController.text, 
+      vehicle_number: vehicleNumberController.text, 
       ratings: "", 
       review: "", 
       description: descriptionController.text,
@@ -236,6 +240,7 @@ class _AddBikeDialogState extends State<AddBikeDialog> {
                   child: Column(
                     children: [
                       _buildTextField(bikeNameController, "Bike Name", Icons.pedal_bike),
+                      _buildTextField(vehicleNumberController, "Vehicle Number", Icons.pin),
                       _buildTextField(typeController, "Type", Icons.category),
                       _buildTextField(rentController, "Rent/Day", Icons.currency_rupee),
                       _buildLocationDropdown(), // Added location dropdown here

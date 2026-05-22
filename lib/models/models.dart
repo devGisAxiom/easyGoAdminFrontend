@@ -32,6 +32,7 @@ class BikeResponse {
 class BikeModel {
   int bId;
   String bName;
+  String? vehicleNumber;
   double bRatings;
   String bDescription;
   double bRentAmount;
@@ -57,6 +58,7 @@ class BikeModel {
   BikeModel({
     required this.bId,
     required this.bName,
+    this.vehicleNumber,
     required this.bRatings,
     required this.bDescription,
     required this.bRentAmount,
@@ -84,6 +86,7 @@ class BikeModel {
     return BikeModel(
       bId: _parseInt(json["b_id"]),
       bName: _parseString(json["b_name"]),
+      vehicleNumber: json["vehicle_number"] as String?,
       bRatings: _parseDouble(json["b_ratings"]),
       bDescription: _parseString(json["b_description"]),
       bRentAmount: _parseDouble(json["b_price"]),
@@ -121,6 +124,7 @@ class BikeModel {
     return {
       'b_id': bId,
       'b_name': bName,
+      'vehicle_number': vehicleNumber,
       'b_ratings': bRatings,
       'b_description': bDescription,
       'b_price': bRentAmount,

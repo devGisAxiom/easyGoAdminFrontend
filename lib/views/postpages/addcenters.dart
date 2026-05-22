@@ -3,6 +3,7 @@ import 'package:getbike_admin/utils/navigations.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:getbike_admin/APIs/apis.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddBikeCenterDialog extends StatefulWidget {
   const AddBikeCenterDialog({super.key});
@@ -35,9 +36,13 @@ class _AddBikeCenterDialogState extends State<AddBikeCenterDialog> {
     };
 
     try {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
+      final String? token = prefs.getString('token');
+
       final response = await http.post(
         url,
-        body: data, // sending as form-data
+        headers: token != null ? {'Authorization': 'Bearer $token'} : {},
+        body: data,
       );
 
       if (response.statusCode == 200) {

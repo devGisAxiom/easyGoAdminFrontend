@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
 import 'package:image_picker/image_picker.dart'; // XFile for web
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../APIs/apis.dart'; // Make sure AddBikeAPI is defined here
 
@@ -13,6 +14,7 @@ class AddBike {
   Future<void> addBikes({
     required BuildContext context,
     required String name,
+    required String vehicle_number,
     required String ratings,
     required String review,
     required String description,
@@ -56,10 +58,17 @@ class AddBike {
     var url = AddBikeAPI;
     var request = http.MultipartRequest('POST', Uri.parse(url));
 
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? token = prefs.getString('token');
+    if (token != null) {
+      request.headers['Authorization'] = 'Bearer $token';
+    }
+
 List<int> centerids = centersList.map((item) => item['l_id'] as int).toList();
       print(centerids);
     
     request.fields['name'] = name;
+    request.fields['vehicle_number'] = vehicle_number;
     request.fields['description'] = description;
     request.fields['rate'] = rate;
     request.fields['location'] = location;
