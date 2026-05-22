@@ -1,5 +1,9 @@
-const String MAINAPI = "https://lunarsenterprises.com:7006/easygo/";
-const String IMAGEBASEURL = "https://lunarsenterprises.com:7006";
+// const String MAINAPI = "https://lunarsenterprises.com:7006/easygo/";
+// const String IMAGEBASEURL = "https://lunarsenterprises.com:7006";
+// const String MAINAPI = "http://localhost:7006/easygo/";
+// const String IMAGEBASEURL = "http://localhost:7006";
+const String MAINAPI = "https://api.tgelectric.in/easygo/";
+const String IMAGEBASEURL = "https://api.tgelectric.in";
 
 const String registerAPI = "${MAINAPI}register";
 
@@ -44,3 +48,7 @@ const String GetUserAPI = "${MAINAPI}list/user";
 const String GetSupportAPI = "${MAINAPI}list/contact";
 
 const String BookingStatusAPI = "${MAINAPI}update/status";
+
+const String PaymentReportAPI = "${MAINAPI}report/payments";
+
+const String PaymentReportExcelAPI = "${MAINAPI}report/excel";
